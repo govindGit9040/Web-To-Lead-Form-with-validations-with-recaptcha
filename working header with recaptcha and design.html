@@ -1,0 +1,694 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style>
+    div.request_btn_area {
+        display: inline-block !important;
+        width: 100%;
+    }
+
+    .recaptcha_error {
+
+        color: red;
+
+        font-size: 13px;
+
+        padding: 0 0 5px;
+
+        display: none;
+
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+
+    }
+
+    .heading {
+        text-align: center;
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
+    .small_txt {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 18px;
+    }
+
+    label {
+        font-size: 13px
+    }
+
+    input {
+        padding: 8px 15px !important;
+    }
+
+    input:focus {
+        outline-color: #ddd !important;
+        outline: 0;
+        border: 1px solid #ddd;
+    }
+
+    .container2 {
+        border-style: solid;
+        border-width: 22px 22px 22px 22px;
+        border-color: #fff;
+        border-radius: 25px 25px 25px 25px;
+        box-shadow: none !important;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .heading {
+        color: #333;
+
+        font-family: Sans-serif;
+
+        font-size: 25px;
+
+        font-weight: 600;
+
+        line-height: 1.2em;
+        font-size: 25px;
+    }
+
+    .pTag {
+        color: #333;
+        font-family: Sans-serif;
+        font-weight: 600;
+        line-height: 1.2em;
+        font-size: 16px;
+    }
+
+    .elementor-divider {
+        border-bottom: 1px solid black;
+    }
+
+    input {
+        margin-bottom: 8px;
+        margin-top: 2px;
+        height: auto !important;
+        width: 100%;
+        padding: 6px 20px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+    }
+
+    .button_request {
+        background: #379bd5 !important;
+        border-color: #379BD5 !important;
+        color: #fff !important;
+        height: auto;
+        font-size: 14px;
+        font-family: Poppins !important;
+        margin: 0 !important;
+        line-height: normal !important;
+        padding: 8px 25px !important;
+        width: max-content;
+        display: inline-block !important;
+        border-radius: 5px !important;
+    }
+
+    .btn {
+        text-align: center;
+
+    }
+
+    .g-recaptcha {
+        transform: scale(0.77);
+        -webkit-transform: scale(0.77);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+
+    .flex_div {
+        display: flex;
+        align-items: center;
+    }
+
+    .flex_div .col {
+        width: 49%;
+        margin-right: 2%;
+
+    }
+
+    .flex_div .col:last-child {
+        margin-right: 0;
+    }
+
+
+    .talk_to_expert_popup_backarea {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #00000075;
+        z-index: 99999;
+        display: none;
+    }
+
+    .talk_to_expert_popup_overlay {
+        position: fixed;
+        width: 510px;
+        background: #fff;
+        border-radius: 10px;
+        height: max-content;
+        max-height: 90vh;
+        top: 5vh;
+        left: calc(50vw - 255px);
+        overflow-y: auto;
+    }
+
+    .close_talk_to_expert {
+        position: relative;
+    }
+
+    .close_talk_to_expert i.eicon-close {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: #379bd5;
+        color: #fff;
+        padding: 7px;
+        border-radius: 0 0 0 13px;
+    }
+
+    @media (max-width: 768px) {
+
+        .container {
+            width: 90%;
+        }
+
+        .container2 {
+            padding: 15px;
+
+        }
+
+        .heading {
+            font-size: 20px;
+        }
+
+        .pTag {
+
+            font-size: 14px;
+        }
+
+        #elementor-popup-modal-59620 .dialog-message {
+            width: auto;
+        }
+
+        .talk_to_expert {
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        .talk_to_expert .container2 {
+            width: 100% !important;
+            padding: 0 !important;
+        }
+
+        .flex_div {
+            display: block;
+            align-items: center;
+        }
+
+        .flex_div .col {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+</style>
+<div class="talk_to_expert_popup_backarea">
+    <div class="talk_to_expert_popup_overlay">
+        <div class="close_talk_to_expert"> <i class="eicon-close tae_close"></i> </div>
+        <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+        <div class="container talk_to_expert">
+            <div class="container2">
+
+                <div class="heading">Talk to Our Expert HEADER
+                </div>
+
+                <p class="small_txt">
+                    Explore how Locobuzz CX Suite, a truly Unified CXM can help increase your customer's lifetime
+                    value,
+                    effortlessly.</p>
+
+                <div class="elementor-divider">
+
+
+                </div>
+
+
+                <div style="margin-top: 14px;">
+
+                    <form id="my_captcha_form"
+                        action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+
+
+                        <script src="https://www.google.com/recaptcha/api.js"></script>
+
+                        <script>
+
+                            function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") { var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value); elems["ts"] = JSON.stringify(new Date().getTime()); document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500);
+
+                        </script>
+
+                        <input type=hidden name="oid" value="00DHr0000017IEP">
+
+                        <input type=hidden name="retURL" value="https://locobuzz.com/thankyou-gact/">
+
+
+                        <label for="email">Work Email <span style="color: red;">*</span></label>
+
+                        <input id="email" maxlength="80" name="email" size="20" type="email" required />
+
+                        <div class="flex_div">
+                            <div class="col">
+                                <label for="first_name">First Name <span style="color: red;">*</span></label>
+
+                                <input id="first_name" maxlength="40" name="first_name" size="20" pattern="[a-zA-Z\s]+"
+                                    title="Please enter only Alphabets. " type="text" onkeyup="lettersOnly(this)"
+                                    required />
+
+                                <span id="first_name_error"></span>
+
+
+                            </div>
+                            <div class="col">
+                                <label for="last_name" style="display: block;">Last Name <span
+                                        style="color: red;">*</span></label>
+
+
+                                <input id="last_name" maxlength="80" name="last_name" size="20" pattern="[a-zA-Z\s]+"
+                                    title="Please enter only Alphabets. " onkeyup="lettersOnly(this)" type="text"
+                                    required />
+
+                                <span id="last_name_error"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="flex_div">
+                            <div class="col">
+                                <label for="phone" style="display: block;">Phone <span
+                                        style="color: red;">*</span></label>
+
+
+
+                                <input id="phone" name="phone" maxlength="10" type="text"
+                                    title="Please enter valid mobile number" pattern="[0-9]{10}" inputmode="numeric"
+                                    required />
+
+
+                            </div>
+                            <div class="col">
+                                <label for="phone">Job Title <span style="color: red;">*</span></label>
+
+                                <input id="00NHr000006MiXg" maxlength="255" name="00NHr000006MiXg" pattern="[a-zA-Z\s]+"
+                                    title="Please enter only Alphabets. " onkeyup="lettersOnly(this)" type="text"
+                                    required />
+
+                                <span id="job_title_error"></span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div style="display:none">
+
+                            <label for="url">Website</label><input id="url" maxlength="80" name="url" size="20"
+                                type="text" /><br>
+
+                            Lead Source:<select id="00NHr000006MfFT" name="00NHr000006MfFT" title="Lead Source">
+
+                                <option value="Website">Website</option>
+
+                            </select><br>
+
+                            <label for="company">Company</label><input id="company" maxlength="40" name="company"
+                                size="20" type="text"
+                                style="margin-bottom: 8px;margin-top: 7px; height:30px;width: 100%;" /><br>
+
+                            Contact Source:<select id="00ND5000002QtpW" name="00ND5000002QtpW" title="Contact Source">
+                                <option value="">--None--</option>
+                                <option value="Google add">Google add</option>
+
+                                <option value="social etc.">social etc.</option>
+
+                            </select><br>
+
+
+                            Original Source:<select id="00NHr000006NLyP" name="00NHr000006NLyP" title="Original Source">
+
+                                <option value="Organic">Organic</option>
+
+                            </select><br>
+
+
+                            Lead Form Type:<input id="00NHr000006NSj8" maxlength="255" name="00NHr000006NSj8" size="20"
+                                type="text" value="Talk to expert"><br>
+
+
+                            <label for="country">Country</label><input id="country" maxlength="40" name="country"
+                                size="20" type="text" /><br>
+
+
+                            -Original Source Drill-Down 1:<input id="00NHr000006Met9" maxlength="255"
+                                name="00NHr000006Met9" size="20" type="text" /><br> --
+
+
+                            First Page Seen:<textarea id="00NHr000006Met4" name="00NHr000006Met4" rows="50" type="text"
+                                wrap="soft"></textarea><br>
+
+
+
+                            Main Lead Source:<select id="00NHr000006Meys" name="00NHr000006Meys"
+                                title="Main Lead Source">
+
+                                <option value="Inbound">Inbound</option>
+
+                            </select><br>
+
+
+                            IP City:<input id="00NHr000006Melt" maxlength="255" name="00NHr000006Melt" size="20"
+                                type="text" /><br>
+
+
+
+                            IP State/Region:<input id="00NHr000006Iwgl" maxlength="255" name="00NHr000006Iwgl" size="20"
+                                type="text" /><br>
+
+
+                            Region:<input id="00NHr000006Melo" maxlength="255" name="00NHr000006Melo" size="20"
+                                type="text" /><br>
+
+
+                            utm Campaign:<input id="00NHr000006MetE" maxlength="255" name="00NHr000006MetE" size="20"
+                                type="text" /><br>
+
+
+                            utm Medium:<input id="00NHr000006MetJ" maxlength="255" name="00NHr000006MetJ" size="20"
+                                type="text" /><br>
+
+                            utm Source:<input id="00NHr000006Met0" maxlength="255" name="00NHr000006Met0" size="20"
+                                type="text" /><br>
+
+
+                            Junk Reasons:<textarea id="00NHr000006MYRB" name="00NHr000006MYRB" rows="3" type="text"
+                                wrap="soft"></textarea><br>
+
+
+                            IP Address:<input id="00NHr000006Meyi" maxlength="255" name="00NHr000006Meyi" size="20"
+                                type="text" /><br>
+
+
+                            utm Term:<input id="00NHr000006MetT" maxlength="255" name="00NHr000006MetT" size="20"
+                                type="text" /><br>
+
+
+                        </div>
+
+
+                        <div class="g-recaptcha" data-sitekey="6Lf4xsEnAAAAAMTxLxRn8eDurPAPCT9Ak8pYpXS1"></div>
+
+                        <span class="recaptcha_error">Please fill the reCAPTCHA</span>
+                        <div class="request_btn_area">
+                            <input type="submit" name="submit" value="Request Now" onclick="getURL()"
+                                class="button_request">
+                        </div>
+
+
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("my_captcha_form").addEventListener("submit", function (evt) {
+
+        var response = grecaptcha.getResponse();
+        if (response.length == 0) {
+            //reCaptcha not verified
+            jQuery(".recaptcha_error").show();
+            setTimeout(function () {
+                jQuery(".recaptcha_error").hide();
+            }, 3000);
+            evt.preventDefault();
+            return false;
+        }
+        //captcha verified
+        //do the rest of your validations here
+
+    });
+    jQuery(document).ready(function () {
+        jQuery(".tte_open").click(function () {
+            jQuery(".talk_to_expert_popup_backarea").show();
+        });
+        jQuery(".tae_close").click(function () {
+            jQuery(".talk_to_expert_popup_backarea").hide();
+        });
+    })
+</script>
+<script type="text/javascript">
+
+    function getURL() {
+        alert();
+        var input3 = document.getElementById('00NHr000006Met9');
+
+        var input4 = document.getElementById('00NHr000006Met4');
+
+        var firstName = document.getElementById('first_name').value;
+
+        var lastName = document.getElementById('last_name').value;
+
+        var jobTitle = document.getElementById('00NHr000006MiXg').value;
+
+        let regex = /\s/g;
+
+        let regex5 = /[a-zA-Z]/g;
+
+
+
+        if (regex.test(firstName) && !regex5.test(firstName)) {
+
+            document.getElementById("first_name").style.border = "1px solid #a11";
+
+            document.getElementById("first_name_error").style.color = "#d11";
+
+            document.getElementById("first_name_error").innerHTML = "Please remove space from field.";
+
+            document.getElementById("first_name").value = null;
+
+        } else if (!regex.test(firstName) && regex5.test(firstName)) {
+
+            document.getElementById("first_name").style.border = "-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));";
+
+            document.getElementById("first_name_error").style.color = "#fff";
+
+            document.getElementById("first_name_error").innerHTML = "";
+
+        }
+
+        let regex1 = /\s/g;
+
+        if (regex1.test(lastName) && !regex5.test(lastName)) {
+            document.getElementById("last_name").style.border = "1px solid #a11";
+
+            document.getElementById("last_name_error").style.color = "#d11";
+
+            document.getElementById("last_name_error").innerHTML = "Please remove space from field.";
+
+            document.getElementById("last_name").value = null;
+
+        } else if (!regex1.test(lastName) && regex5.test(lastName)) {
+
+            document.getElementById("last_name").style.border = "-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
+
+            document.getElementById("last_name_error").style.color = "#fff";
+
+            document.getElementById("last_name_error").innerHTML = "";
+        }
+
+        let regex2 = /\s/g;
+
+        if (regex2.test(jobTitle) && !regex5.test(jobTitle)) {
+
+            document.getElementById("00NHr000006MiXg").style.border = "1px solid #a11";
+
+            document.getElementById("job_title_error").style.color = "#d11";
+
+            document.getElementById("job_title_error").innerHTML = "Please remove space from field.";
+
+            document.getElementById("00NHr000006MiXg").value = null;
+
+        } else if (!regex2.test(jobTitle) && regex5.test(jobTitle)) {
+
+            document.getElementById("00NHr000006MiXg").style.border = "-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
+
+            document.getElementById("job_title_error").style.color = "#fff";
+
+            document.getElementById("job_title_error").innerHTML = "";
+        }
+
+        let urlValue = window.location.href;
+
+
+        //   var result = urlValue.slice(50);
+
+
+
+
+        //input3.value = result;
+
+        input4.value = urlValue;
+
+
+        var input1 = document.getElementById('email');
+
+        var input2 = document.getElementById('company');
+        var inputurl = document.getElementById('url');
+        let str = input1.value;
+
+        let terms = ['gmail', 'yahoo', 'hotmail', 'rediffmail', 'outlook', 'hotmail', 'rediffmail', 'AOL', 'Sify', 'ICloud', 'protonMail', 'zohomail', 'Gmail', 'Outlook', 'Hotmail', 'Yahoo', 'Rediffmail', 'AOL', 'Sify', 'ICloud', 'ProtonMail', 'Zohomail', 'sify', 'iCloud', 'Protonmail', 'aol'];
+
+
+
+        let test1 = terms.some(el => str.includes(el));
+
+        if (test1 == true) {
+
+            alert("Please provide your work email.");
+
+            event.preventDefault()
+
+        }
+
+
+
+
+        else {
+
+            let hindex = str.indexOf("@");
+
+            let sindex = str.indexOf(".com");
+
+            let extracted = str.substring(hindex + 1, sindex);
+            console.log('extracted', extracted)
+            let wwwCompany = 'https://www.'
+            let domainAdd = '.com'
+            let websiteUrl = wwwCompany + extracted + domainAdd;
+            console.log('extracted2', websiteUrl)
+
+
+            input2.value = extracted;
+            inputurl.value = websiteUrl;
+        }
+
+    }
+
+
+    function lettersOnly(input) {
+
+        console.log("pressed");
+
+        var regex = /[^a-z ]/gi;
+
+        input.value = input.value.replace(regex, "");
+
+    }
+
+
+    jQuery(document).ready(function () {
+
+        retrieveGeolocation();
+
+    });
+
+    function retrieveGeolocation() {
+
+        // var apiKey = 'vNKkBgXosSfkfM1cVHjvlxW3BPvd8N6g216ottLK';
+
+        var apiKey = 'vNKkBgXosSfkfM1cVHjvlxW3BPvd8N6g216ottLK';
+
+        var url = 'https://api.ipbase.com/v2/info';
+
+        var requestData = {
+
+            apikey: apiKey
+
+        };
+
+        jQuery.ajax({
+
+            url: url,
+
+            type: 'GET',
+
+            data: requestData,
+
+            success: function (response) {
+
+                // Handle the retrieved geolocation data
+
+                calloutResponse = response;
+
+                console.log('Country:' + response.data.location.country.name);
+
+                if (response.data.location.country.name != '' || response.data.location.country.name != null) {
+
+                    document.getElementById('country').value = response.data.location.country.name;
+
+                }
+
+                console.log('City:' + response.data.location.city.name);
+
+                if (response.data.location.city.name != '' || response.data.location.city.name != null) {
+
+                    document.getElementById('00NHr000006Melt').value = response.data.location.city.name;
+
+                }
+
+                console.log('region:' + response.data.location.continent.name);
+
+                if (response.data.location.region.name != '' || response.data.location.region.name != null) {
+
+                    document.getElementById('00NHr000006Melo').value = response.data.location.region.name;
+
+                }
+
+                if (response.data.location.region.name != '' || response.data.location.region.name != null) {
+
+                    document.getElementById('00NHr000006Iwgl').value = response.data.location.region.name;
+
+                }
+
+                console.log(response.data.location);
+
+            },
+
+            error: function (xhr, status, error) {
+
+                console.log('Error retrieving geolocation:', error);
+
+            }
+
+        });
+
+    }
+
+
+
+</script>
