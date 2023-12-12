@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with reCAPTCHA</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+    <form id="myForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span id="nameError" class="error"></span>
+
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <span id="emailError" class="error"></span>
+
+        <br>
+
+        <label for="countryCode">Country Code:</label>
+        <select id="countryCode" name="countryCode">
+            <option value="+1">United States (+1)</option>
+            <option value="+44">United Kingdom (+44)</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone">
+        <span id="phoneError" class="error"></span>
+
+        <br>
+
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            // Clear previous error messages
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("phoneError").innerHTML = "";
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var countryCode = document.getElementById("countryCode").value;
+            var phone = document.getElementById("phone").value;
+
+            // Validate name
+            if (name === "") {
+                document.getElementById("nameError").innerHTML = "Name must be filled out";
+                return false;
+            }
+
+            // Validate email
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.match(emailRegex)) {
+                document.getElementById("emailError").innerHTML = "Invalid email address";
+                return false;
+            }
+
+            // Validate phone
+            var phoneRegex = /^\d{9}$/; // assuming a 9-digit phone number
+            if (!phone.match(phoneRegex)) {
+                document.getElementById("phoneError").innerHTML = "Invalid phone number (must be 9 digits)";
+                return false;
+            }
+
+            // Check if reCAPTCHA is filled
+            var recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the reCAPTCHA");
+                return false;
+            }
+
+            // Concatenate country code with phone number
+            document.getElementById("phone").value = countryCode + phone;
+
+            // If all validations pass, the form will be submitted
+            return true;
+        }
+    </script>
+
+</body>
+</html>
